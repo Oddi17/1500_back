@@ -16,6 +16,7 @@ async def sendwater(
 ):
     data.recdt = data.recdt.replace(tzinfo=None)
     data = data.model_dump()
+    data['username'] = user.first_name
     res_id = await analitic_control_service.send_data(data)
     if not res_id:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Ошибка отправки данных")
@@ -29,7 +30,7 @@ async def sendrising(
 ):
     data.recdt = data.recdt.replace(tzinfo=None)
     data = data.model_dump()
-    print(data)
+    data['username'] = user.first_name
     res_id = await analitic_control_service.send_data(data)
     if not res_id:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Ошибка отправки данных")

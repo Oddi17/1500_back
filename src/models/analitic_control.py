@@ -1,7 +1,7 @@
 from sqlalchemy import Numeric
 from sqlalchemy.orm import Mapped,mapped_column
 from database.db import Base
-from sqlalchemy.types import String,REAL,Integer,DateTime
+from sqlalchemy.types import String,Integer,DateTime
 from datetime import datetime
 from schemas.analitic_control import ACSchema
 
@@ -19,6 +19,7 @@ class AnaliticControl(Base):
     aluminum: Mapped[float] = mapped_column(Numeric(10,5),nullable=False)
     turbidity: Mapped[float] = mapped_column(Numeric(10,5),nullable=False)
     chlorides: Mapped[float] = mapped_column(Numeric(10,5),nullable=False)
+    username: Mapped[str] = mapped_column(String,nullable=False)
 
     def to_read_model(self) -> ACSchema:
         return ACSchema(
@@ -32,4 +33,5 @@ class AnaliticControl(Base):
             aluminum=self.aluminum,
             turbidity=self.turbidity,
             chlorides=self.chlorides,
+            username=self.username,
         )

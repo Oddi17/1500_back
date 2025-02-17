@@ -77,7 +77,11 @@ class DevicesService:
                 for value in item["devices_values"]:
                     date_time = value["dif_date_time"]
                     flok_data[date_time]["dif_date_time"] = date_time
-                    flok_data[date_time][sid] = value["dif_value"]
+                    if value["dif_value"] != "Отсутствуют данные":
+                        rash_value = round(value["dif_value"],4)
+                    else:
+                        rash_value = value["dif_value"]
+                    flok_data[date_time][sid] = rash_value
         for item in flok_data:
             if 'Сoefficient' in flok_data[item]:
                 if flok_data[item]['Сoefficient'] != 'Отсутствуют данные':
@@ -89,7 +93,7 @@ class DevicesService:
             elif flok_data[item]['VOS1_V_FLOK_SUM'] == "Отсутствуют данные":
                  flok_data[item]["Udel"] = "Отсутствуют данные"   
             else:         
-                flok_data[item]["Udel"] = ((flok_data[item]['VOS1_V_FLOK_SUM'])*p)/((flok_data[item]['VOS1_VIN'])/1000)
+                flok_data[item]["Udel"] = round(((flok_data[item]['VOS1_V_FLOK_SUM'])*p)/((flok_data[item]['VOS1_VIN'])/1000),4)
         result = self.devices_core.chemistry_values(grouped_data)
         values = list(flok_data.values())
         result['VOS1_V_FLOK_SUM'] = values

@@ -25,7 +25,7 @@ class ACRisingSchema(BaseModel):
     chlorine: float
     aluminum: float
     turbidity: float
-    chlorides: float 
+    chlorides: float
 
 
 
@@ -40,4 +40,5 @@ class ACSchema(BaseModel):
     chlorine: float | None
     aluminum: float
     turbidity: float
-    chlorides: float     
+    chlorides: float
+    username: str     

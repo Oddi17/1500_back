@@ -115,7 +115,7 @@ class DevicesCore:
         for key,value in chem_dict.items():
             if key != "VOS1_VIN" and key != "VOS1_V_FLOK_SUM":
                 chem_out_value = ((value*p[key])/((chem_dict["VOS1_VIN"])/1000))
-                res_dict[key] = {"sid":key,"volume":chem_dict["VOS1_VIN"],"consumption":value,"res_value":chem_out_value}
+                res_dict[key] = {"sid":key,"volume":chem_dict["VOS1_VIN"],"consumption":round(value,4),"res_value":round(chem_out_value,4)}
         return res_dict
     
     def electricity_values(self,data):
