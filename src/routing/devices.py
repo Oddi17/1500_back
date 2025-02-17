@@ -18,7 +18,7 @@ async def get_devices(
     user: UsersSchema = Depends(role_dependency(["admin","user"]))
 ):  
     devices = await devices_service.get_devices(start_time,end_time,sample)
-    if not devices:
+    if (not devices or len(devices["data_source"]) < 1):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="По запросу ничего не найдено")
     return jsonable_encoder(devices)
 
