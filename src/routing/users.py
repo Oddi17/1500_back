@@ -28,7 +28,7 @@ async def authorization_user(
                     # secure=True,
                     # samesite="None",
                     httponly=True,
-                    max_age=3600,   # Кука будет жить 1 час
+                    max_age=18000,   # Кука будет жить 5 час
                     #expires=expires, 
                     path="/"        # Доступна для всех путей
                 )
