@@ -96,7 +96,8 @@ class DevicesService:
                 flok_data[item]["Udel"] = round(((flok_data[item]['VOS1_V_FLOK_SUM'])*p)/((flok_data[item]['VOS1_VIN'])/1000),4)
         result = self.devices_core.chemistry_values(grouped_data)
         values = list(flok_data.values())
-        result['VOS1_V_FLOK_SUM'] = values
+        if values:
+            result['VOS1_V_FLOK_SUM'] = values
         return result
     
     async def get_electricity(self,start_time,end_time):

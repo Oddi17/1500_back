@@ -9,6 +9,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+create_pasw.py
+create.txt
 .Python
 build/
 develop-eggs/
