@@ -41,7 +41,7 @@ async def getjournal(
     analitic_control_service: Annotated[AnaliticControleService, Depends(analitic_control_service)],
     start_time: str,
     end_time: str,
-    user: UsersSchema = Depends(role_dependency(["admin","operator"])),
+    user: UsersSchema = Depends(role_dependency(["admin","operator","user"])),
 ):
     data = await analitic_control_service.get_data(start_time,end_time) 
     if not data:
