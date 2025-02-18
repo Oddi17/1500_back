@@ -9,7 +9,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-create_pasw.py
+create_pas.py
 create.txt
 .Python
 build/
