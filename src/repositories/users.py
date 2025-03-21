@@ -3,7 +3,7 @@ from models.users import Users
 from utils.repository import SQLAlchemyRepository
 from database.db import async_session
 
-class UsersRepository():
+class UsersRepository(SQLAlchemyRepository):
     model = Users
     
     @classmethod

@@ -9,13 +9,18 @@ from repositories.users import UsersRepository
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def get_user_role(user_role)->str:
+def get_user_role(user_role,setmode=0)->str:
         role_map= {
             "is_user" : "user",
             "is_admin" : "admin",
             "is_operator" : "operator",
         }
+        if setmode == 1:
+            for role,value in role_map.items():
+                if value == user_role:
+                    return role
         return role_map.get(user_role,"")
+
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)

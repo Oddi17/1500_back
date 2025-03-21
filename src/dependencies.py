@@ -6,6 +6,7 @@ from repositories.analitic_control import AnaliticControl
 from services.devices import DevicesService
 from services.alarms import AlarmsService
 from services.analitic_control import AnaliticControleService
+from services.users import UsersService
 # from services.auth import AuthService
 
 
@@ -17,6 +18,9 @@ def alarms_service()->AlarmsService:
 
 def analitic_control_service()->AnaliticControleService:
     return AnaliticControleService(AnaliticControl)
+
+def users_service()->UsersService:
+    return UsersService(UsersRepository)
 
 # def users_service()->UsersService:
 #     return UsersService(UsersRepository)

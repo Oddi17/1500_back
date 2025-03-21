@@ -9,9 +9,9 @@ class AbstractRepository(ABC):
 
    
     
-    # @abstractmethod
-    # async def delete():
-    #     raise NotImplemented
+    @abstractmethod
+    async def delete():
+        raise NotImplemented
 
     @abstractmethod
     async def add():
@@ -70,9 +70,33 @@ class SQLAlchemyRepository(AbstractRepository):
                 res.to_read_model()
             return res
         
+    async def delete(self,*filters):
+        async with async_session() as session:
+            if filters:
+                stmt = delete(self.model).where(*filters)
+                res = await session.execute(stmt)
+                await session.commit()
+                return res.rowcount
+            return None
+    async def get_all_users(self,*filters):
+        async with async_session() as session:
+            stmt = select(self.model)
+            if filters:
+                stmt = stmt.filter(*filters).order_by(self.model.id)
+            res = await session.execute(stmt)
+            res = [row.to_read_model() for row in res.scalars().all()]
+            return res
+    async def change(self,id:int,data:dict):
+        async with async_session() as session:
+            stmt = (
+                    update(self.model)
+                    .where(self.model.id == id)
+                    .values(**data)
+                )
+            res = await session.execute(stmt)
+            await session.commit()
+            #return res.scalars().first()
 
-    # async def delete():
-    #     pass
 
 
 
