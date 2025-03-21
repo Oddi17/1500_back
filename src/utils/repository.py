@@ -78,6 +78,7 @@ class SQLAlchemyRepository(AbstractRepository):
                 await session.commit()
                 return res.rowcount
             return None
+        
     async def get_all_users(self,*filters):
         async with async_session() as session:
             stmt = select(self.model)
