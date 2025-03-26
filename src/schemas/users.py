@@ -24,3 +24,7 @@ class UsersCreateSchema(BaseModel):
 class UsersChange(BaseModel):
     id : int
     role : str
+
+class UsersPassword(BaseModel):
+    id : int
+    password : str    

@@ -6,8 +6,9 @@ class UsersService:
     
     async def get_all_users(self):
         users = await self.users_repo.get_all_users()
+        #Убрать самого админа
         # Убираем поле password при сериализации
-        serialized_users = [user.model_dump(exclude={"password"}) for user in users]
+        serialized_users = [user.model_dump(exclude={"password"}) for user in users if user.id != 1]
         for user in serialized_users:
             user['role'] = get_user_role(user['role'],1)
         return serialized_users
@@ -31,4 +32,11 @@ class UsersService:
         user_data = {"role":user_role}
         res = await self.users_repo.change(user_id,user_data)
         return res
-
+    
+    async def change_password_user(self,user_data):
+        hash_password_user = get_password_hash(user_data.password)
+        user_password = hash_password_user
+        user_id = user_data.id
+        user_data = {"password":user_password}
+        res = await self.users_repo.change(user_id,user_data)
+        return res

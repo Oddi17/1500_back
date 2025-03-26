@@ -1,6 +1,6 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Response,status
-from schemas.users import UsersAuthSchema, UsersSchema,UsersCreateSchema,UsersChange
+from schemas.users import UsersAuthSchema, UsersSchema,UsersCreateSchema,UsersChange,UsersPassword
 from services.auth import authenticate_user, role_dependency,verify_password,get_user_role,create_access_token,get_current_user,get_password_hash
 from services.users import UsersService
 from dependencies import users_service
@@ -86,4 +86,13 @@ async def change_role_user(
         HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ошибка изменения роли пользователя")
     return {'message':'Роль пользователя успешно изменена'}
 
-    
+@router.put("/change/user/password")
+async def change_user_password(
+                        users_service: Annotated[UsersService, Depends(users_service)],
+                        change_user_data: UsersPassword,
+                        user: UsersSchema = Depends(role_dependency(["admin"]))
+                    ):
+    res = await users_service.change_password_user(change_user_data)
+    if not res:
+        HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ошибка изменения пароля пользователя")
+    return {'message':'Пароль пользователя успешно изменен'}
